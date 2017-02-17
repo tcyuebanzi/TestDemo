@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+                overflow: hidden;
+            }
+            #cvs {
+                background: url(img/bg.png) repeat;
+            }
+            #eraser {
+                background: rgba(250, 250, 250, 0.5);
+                position: absolute;
+            }
+            #chalk {
+                width:40px;
+                height: 50px;
+                position: absolute;
+                background: url(img/chalk.png);
+                display: none;
+            }
+        </style>
+        <script>
+        window.onload = function(){
+            var eraser = document.getElementById("eraser");
+            var chalk= document.getElementById("chalk");
+            var cvs = document.getElementById("cvs");
+            var ctx = cvs.getContext("2d");
+            var lastX, lastY;
+            var mouseDown = -1; // -1： 没   0，1 ：左键  2：右键
+            var eraserWidth = 50;
+            var eraserHeight = 100;
+            
+            eraser.style.width = eraserWidth + "px";
+            eraser.style.height = eraserHeight + "px";
+            
+            cvs.width = window.innerWidth;
+            cvs.height = window.innerHeight;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+            ctx.lineWidth = 7;
+            ctx.lineCap = "round";
+            
+            cvs.onmousedown = function(e) {
+                lastX = e.offsetX;
+                lastY = e.offsetY;
+                chalk.style.display = "block"
+                mouseDown = e.button;
+            };
+            
+            cvs.onmouseup = function(e) {
+                chalk.style.display = "none";
+                mouseDown = -1;
+            };
+            
+            cvs.onmousemove = function(e) {
+                console.log(mouseDown);
+                if (mouseDown == -1){
+                    return;
+                } else if (mouseDown == 2) {e.preventDefault();
+//                  eraser();
+                    eraser.style.left = (e.offsetX - eraserWidth/2) + "px";
+                    eraser.style.top = (e.offsetY - eraserHeight/2) + "px";
+                    
+                    ctx.clearRect(e.offsetX - eraserWidth/2, e.offsetY - eraserHeight/2, eraserWidth, eraserHeight);
+                } else {
+                    // +1 避免遮挡
+                    chalk.style.left = (e.offsetX + 1) + "px";
+                    chalk.style.top = (e.offsetY + 1)+ "px";
+                    
+                    // 涂鸦
+                    ctx.beginPath();
+                    ctx.moveTo(lastX, lastY);
+                    ctx.lineTo(e.offsetX, e.offsetY );
+                    ctx.stroke();
+                    
+                    // 粉笔特效
+                    var dx = e.offsetX - lastX;
+                    var dy = e.offsetY - lastY;
+                    var c = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+                    
+                    var ct = Math.random() * 20 +5;
+                    for(var i = 0; i < ct; i++ ) {
+                        var l = Math.random() * c;
+                        var cx = l/c * dx + lastX;
+                        var cy = l/c * dy + lastY;
+                        var cw = Math.random() * ctx.lineWidth/2;
+                        var ch = Math.random() * ctx.lineWidth/2;
+    
+                        ctx.clearRect(cx, cy, cw, ch);
+                    }
+                    lastX = e.offsetX;
+                    lastY = e.offsetY;
+                }
+                
+
+            }
+           
+        }
+        </script>
+    </head>
+    <body>
+        <canvas id="cvs">
+                        您的浏览器不支持Canvas。
+        </canvas>
+        <div id="eraser"></div>
+        <div id="chalk"></div>
+    </body>
+</html>

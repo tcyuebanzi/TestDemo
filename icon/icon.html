@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .icons {
+            width: 80px;
+            height: 80px;
+            margin: 500px auto;
+            font-size: 50px;
+            color: #888888;
+            position: relative;
+        }
+
+        .icons .icon {
+            line-height: 80px;
+            width: 80px;
+            height: 80px;
+            background: #dbdbdb;
+            border-radius: 50%;
+            text-align: center;
+            position: absolute;
+            transition: all 1s;
+        }
+
+        .icon_one {
+            top: 0;
+            left: 0;
+            transition: all 1s;
+            transform: rotate(180deg);
+        }
+
+        .icon-pos {
+            z-index: 1;
+        }
+    </style>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script>
+        $(function () {
+            var n=0;
+            $(".icons").click(function () {
+                if(n==0){
+                    $(this).find(".icon-pos").css({ transform: "rotate(-180deg)"});
+                    $(".icons").find(".icon_one").each(function (index) {
+
+                        var numX = -400 * Math.cos(Math.PI * (index / 4) / 2);
+                        var numY = -400 * Math.sin(Math.PI * (index / 4) / 2);
+                        $(this).css({top: numY, left: numX, transform: "rotate(0deg)", transition: "all 1s ease "+index*0.1+"s"})
+                    });
+                    n=1;
+                }else {
+                    $(this).find(".icon-pos").css({ transform: "rotate(0deg)"});
+                    $(".icons").find(".icon_one").each(function (index) {
+                        $(this).css({top: 0, left: 0, transform: "rotate(180deg)", transition: "all 1s ease "+(4-index)*0.1+"s"});
+                        n=0
+                    });
+                }
+            })
+        })
+
+    </script>
+
+</head>
+<body>
+<div class="icons">
+    <div class="icon icon-pos"><i class="fa fa-asterisk"></i></div>
+    <div class="icon icon_one"><i class="fa fa-scissors"></i></div>
+    <div class="icon icon_one"><i class="fa fa-tag"></i></div>
+    <div class="icon icon_one"><i class="fa fa-dashcube"></i></div>
+    <div class="icon icon_one"><i class="fa fa-bar-chart"></i></div>
+    <div class="icon icon_one"><i class="fa fa-recycle"></i></div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

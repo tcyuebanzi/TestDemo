@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jQuery控制缩略图横向滚动焦点图特效</title>
+    <link href="css/jq22.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+<!-- html代码begin -->
+<div class="focus">
+    <div class="focusbox">
+        <div class="focusimg">
+            <ul class="fimglist">
+                <li><a href="http://www.jq22.com/"><img src="images/jq1.jpg" /></a></li>
+                <li><a href="http://www.jq22.com/"><img src="images/jq2.jpg" /></a></li>
+                <li><a href="http://www.jq22.com/"><img src="images/jq3.jpg" /></a></li>
+                <li><a href="http://www.jq22.com/"><img src="images/jq4.jpg" /></a></li>
+                <li><a href="http://www.jq22.com/"><img src="images/jq5.jpg" /></a></li>
+                <li><a href="http://www.jq22.com/"><img src="images/jq6.jpg" /></a></li>
+                <li><a href="http://www.jq22.com/"><img src="images/jq7.jpg" /></a></li>
+            </ul>
+        </div>
+        <div class="focustool">
+            <ul class="ftoollist">
+                <li class="on"><a href="javascript:;"><img src="images/jq1_s.jpg"><p class="imgname">银魂剧场版</p></a></li>
+                <li><a href="javascript:;"><img src="images/jq2_s.jpg"><p class="imgname">石头门剧场版</p></a></li>
+                <li><a href="javascript:;"><img src="images/jq3_s.jpg"><p class="imgname">高达UC</p></a></li>
+                <li><a href="javascript:;"><img src="images/jq4_s.jpg"><p class="imgname">剑风传奇</p></a></li>
+                <li><a href="javascript:;"><img src="images/jq5_s.jpg"><p class="imgname">夏日大作战</p></a></li>
+                <li><a href="javascript:;"><img src="images/jq6_s.jpg"><p class="imgname">亡国的阿基德</p></a></li>
+                <li><a href="javascript:;"><img src="images/jq7_s.jpg"><p class="imgname">新EVA剧场版</p></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- html代码end -->
+
+<!-- js代码begin -->
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $(function(){
+        $(".ftoollist li").hover(function(){
+            var $this = $(this);
+            $this.addClass("on").siblings().removeClass("on");
+            var $preNumber = $this.index();
+            $(".fimglist li").removeClass("onpre");
+            $(".fimglist li:eq($preNumber)").addClass("onpre");
+            var distance = 990;
+            distance = distance * $preNumber;
+            distance = distance * -1;
+            $(".fimglist").stop().animate({marginLeft: distance + "px"}, {duration: 500});
+        });
+    });
+</script>
+<!-- js代码end -->
+
+</body>
+</html>

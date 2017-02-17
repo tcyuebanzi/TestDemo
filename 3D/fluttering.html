@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.1.0.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            list-style: none;
+            width: 300px;
+            margin: 100px auto;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        h2{
+            width: 300px;
+            height: 50px;
+            background: #baba00;
+            border-bottom: 1px dashed #f8f8f8;
+            line-height: 60px;
+            font-size: 22px;
+            text-align: center;
+        }
+        .box div {
+            width: 300px;
+            height: 50px;
+            background: #bbbb00;
+            border-top: 1px dashed #f8f8f8;
+            line-height: 50px;
+            font-size: 22px;
+            text-align: center;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transform-origin: top;
+            transform: rotateX(180deg)
+        }
+
+        @keyframes run {
+            0%{ transform: rotateX(0deg);}
+            25%{transform: rotateX(-5deg);}
+            50%{transform: rotateX(0deg);}
+            75%{transform: rotateX(5deg);}
+            100%{transform: rotateX(0deg);}
+        }
+        .expand{
+            transform: rotate(0deg) !important;
+            transition: all 1s linear;
+        }
+        .wind{
+            animation: run 4s linear 1s infinite ;
+        }
+    </style>
+    <script>
+        $(function () {
+            var index = 1;
+            var timer = null;
+            timer=setInterval(function () {
+                index++;
+                if (index>6){clearInterval(timer)}
+                $(".box div").eq(index).addClass("expand wind")
+            },300)
+
+        })
+    </script>
+</head>
+<body>
+<div class="box">
+        <h2>我是谁</h2>
+        <div >
+            <span>我在那</span>
+            <div>
+                <span>我在那</span>
+                <div>
+                    <span>我在那</span>
+                    <div>
+                        <span>我在那</span>
+                        <div>
+                            <span>我在那</span>
+                            <div>
+                                <span>我在那</span>
+                                <div>
+                                    <span>我在那</span>
+                                    <div>
+                                        <span>我在那</span>
+                                        <div>
+                                            <span>我在那</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+</body>
+</html>
